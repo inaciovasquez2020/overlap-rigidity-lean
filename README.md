@@ -1,46 +1,149 @@
-Overlap Rigidity (Lean Formalization)
+# overlap‑rigidity‑lean
 
-This repository contains the canonical Lean formalization of the Overlap Rigidity assumptions used in the Final Wall program. It is a frozen dependency and serves as a formal backbone for the mathematical structures and predicates that underpin the conditional overlap rigidity axiom.
+Canonical **Lean formalization dependency** for **Overlap Rigidity** (the *Final Wall* in the locality / rigidity program).
 
-Repository Purpose
+This repository is **frozen**. It exists to provide a stable, auditable Lean foundation that downstream projects may import without risk of semantic drift.
 
-The goal of this project is to formalize, in the Lean theorem prover, the essential definitions and properties required for the Overlap Rigidity axiom used in the conditional Final Wall research program. As a frozen artifact, it is not under active development but is maintained for reproducibility and dependency tracking.
+---
 
-Formalization Goals
+## Role in the program
 
-This repository provides:
+This project formalizes the **core definitions, invariants, and local lemmas** required for Overlap Rigidity arguments. It is intentionally minimal and structural.
 
-Canonical definitions of core graph and local structure constructs
+It sits **below** proof‑carrying manuscripts and **above** raw mathlib:
 
-Formal predicates capturing local cycle overlap properties
+```
+mathlib
+   ↓
+overlap‑rigidity‑lean   (this repo)
+   ↓
+cycle‑local‑rigidity / chronos / URF‑core
+```
 
-Encoded assumptions reflecting the Overlap Rigidity axiom
+No claims are asserted here. This repository only establishes *formal objects* that other proofs depend on.
 
-Verified properties such as monotonicity, locality invariance, and absence of rigidity amplification
+---
 
-These formalizations support the mechanical verification of key theoretical claims in the broader Final Wall program.
+## What is (and is not) here
 
-Status
+### Included
 
-STATUS: Frozen
-ROLE: Canonical Lean dependency for Final Wall
-ASSUMPTION: Overlap Rigidity axiom (isolated)
-GUARANTEES: Monotonicity, FO-local invariance, no rigidity amplification
+* Lean definitions for:
 
-How to Use
+  * bounded‑degree graphs / local neighborhoods
+  * local overlap and cycle‑interaction predicates
+  * FOᵏ / locality‑compatible invariants (as abstract structures)
+* Lemmas that are:
 
-Clone the repository.
+  * purely local
+  * non‑asymptotic
+  * reusable across multiple rigidity arguments
 
-Inspect the formal Lean files to understand the definitions and assumptions.
+### Explicitly excluded
 
-Use this formalization as a dependency when building or verifying other artifacts in the Final Wall program, especially those requiring overlap rigidity predicates.
+* Global rigidity theorems
+* Asymptotic bounds or threshold constants
+* Probabilistic arguments
+* Any claim equivalent to “Overlap Rigidity is proven”
 
-Contribution
+Those live **outside** this repository.
 
-This repository is frozen by design. Major contributions, changes, or fixes should be discussed with the Final Wall program maintainers.
+---
 
-If you believe there is an issue or improvement that would benefit the overall research program, please open an issue referencing how it interacts with the conditional dependencies indexed elsewhere.
+## Repository structure
 
-License
+```
+.
+├── src/
+│   ├── Overlap/
+│   │   ├── Basic.lean        # core definitions
+│   │   ├── LocalTypes.lean   # locality / type abstractions
+│   │   └── Support.lean      # overlap / support relations
+│   └── Main.lean
+├── tests/
+│   └── sanity.lean           # minimal build checks
+├── lake.toml
+├── lake-manifest.json
+├── STATUS.md
+└── README.md
+```
 
-Include appropriate licensing information here.
+File names may evolve slightly, but **semantic scope will not**.
+
+---
+
+## Build requirements
+
+* Lean version pinned in `lake.toml`
+* mathlib as resolved by `lake-manifest.json`
+
+No external tooling is required.
+
+---
+
+## Build and verification
+
+To build and verify locally:
+
+```bash
+lake build
+```
+
+Optional sanity check:
+
+```bash
+lake test
+```
+
+Successful compilation is the **only acceptance criterion**.
+
+---
+
+## Stability and freezing policy
+
+* This repository is **API‑frozen**
+* Any future changes require:
+
+  * a new tag
+  * an explicit downstream migration note
+
+The default branch is intended to remain permanently usable as a dependency.
+
+---
+
+## Downstream usage
+
+Typical `lakefile.lean` dependency:
+
+```lean
+require overlapRigidity from git
+  "https://github.com/inaciovasquez2020/overlap-rigidity-lean" @ "<tag>"
+```
+
+Downstream projects are expected to:
+
+* state their own theorems
+* import these definitions without modification
+
+---
+
+## Status
+
+* Formal layer: **complete for intended scope**
+* CI: **green**
+* Claims: **none** (by design)
+
+See `STATUS.md` for a precise scope statement.
+
+---
+
+## License
+
+MIT (or compatible permissive license).
+
+---
+
+## Provenance note
+
+This repository is part of a broader rigidity and locality research program. It is intentionally separated to ensure that **formal correctness, dependency hygiene, and auditability** are preserved independent of higher‑level claims.
+\
