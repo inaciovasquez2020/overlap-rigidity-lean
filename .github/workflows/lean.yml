@@ -1,15 +1,16 @@
-name: lean
-
-on:
-  push:
-  pull_request:
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: elan default leanprover/lean4:v4.27.0
+
+      - name: Install Elan (pinned, retry-safe)
+        run: |
+          curl -fL --retry 5 --retry-delay 3 \
+            https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y
+          echo "$HOME/.elan/bin" >> $GITHUB_PATH
+          elan default leanprover/lean4:v4.27.0
+
       - uses: leanprover/lean-action@v1
         with:
           auto-config: true
