@@ -10,6 +10,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Generate lake manifest
+        run: lake update
+
       - uses: leanprover/lean-action@v1
         with:
           auto-config: true
