@@ -10,12 +10,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: leanprover/lean-action@v1
+        with:
+          auto-config: true
+          build: false
+          test: false
+          lint: false
+
       - name: Generate lake manifest
         run: lake update
 
       - uses: leanprover/lean-action@v1
         with:
-          auto-config: true
+          auto-config: false
           build: default
           test: default
           lint: default
