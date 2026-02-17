@@ -14,11 +14,13 @@ jobs:
         run: |
           curl -fL --retry 5 --retry-delay 3 \
             https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y
-          echo "$HOME/.elan/bin" >> $GITHUB_PATH
+          source "$HOME/.elan/env"
           elan default leanprover/lean4:v4.27.0
 
       - name: Generate lake manifest
-        run: lake update
+        run: |
+          source "$HOME/.elan/env"
+          lake update
 
       - uses: leanprover/lean-action@v1
         with:
@@ -33,4 +35,4 @@ jobs:
           use-github-cache: true
           lake-package-directory: .
           reinstall-transient-toolchain: false
-
+	
