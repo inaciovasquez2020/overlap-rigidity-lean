@@ -22,7 +22,8 @@ jobs:
           source "$HOME/.elan/env"
           lake update
 
-      - uses: leanprover/lean-action@v1
+      - name: Build with lean-action
+        uses: leanprover/lean-action@v1
         with:
           auto-config: false
           build: default
@@ -35,4 +36,4 @@ jobs:
           use-github-cache: true
           lake-package-directory: .
           reinstall-transient-toolchain: false
-	
+
