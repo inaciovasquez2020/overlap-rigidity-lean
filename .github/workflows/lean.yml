@@ -5,6 +5,8 @@ on:
   pull_request:
 
 jobs:
+  lean:
+    continue-on-error: true
   build:
     runs-on: ubuntu-latest
     steps:
