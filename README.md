@@ -127,6 +127,10 @@ Downstream projects are expected to:
 
 ---
 
+
+## Conditional note
+- `docs/FORMAL_SCOPE_NOTE_2026_04.md` — conditional note specifying the weakest interface-level extension compatible with the repository's frozen, claim-free dependency role.
+
 ## Status
 
 * Formal layer: **complete for intended scope**
