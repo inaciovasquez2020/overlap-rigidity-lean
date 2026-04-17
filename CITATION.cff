@@ -1,0 +1,6 @@
+cff-version: 1.2.0
+title: overlap-rigidity-lean
+message: Please cite this repository if you use it.
+authors:
+  - family-names: Vasquez
+    given-names: Inacio
